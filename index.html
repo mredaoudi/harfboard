@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>HarfBoard</title>
+        <link rel="stylesheet" type="text/css" href="index.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;500;600;700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    </head>
+    <body class="bg-gray-200">
+        <div id="container" class="w-1/2 mx-auto mt-8 flex flex-col items-center" style="font-family: 'Ubuntu';">
+            <div class="mb-2 font-bold text-2xl text-slate-700">
+                HarfBoard
+            </div>
+            <div class="w-full mb-4 border border-slate-400 rounded-md bg-gray-50 shadow-lg">
+                <div class="px-4 py-2 bg-white rounded-t-lg">
+                    <textarea
+                        autofocus
+                        id="textbox"
+                        rows="1"
+                        style="font-family: 'Scheherazade New';"
+                        class="resize-none w-full text-2xl px-0 py-2 text-gray-900 caret-gray-400 bg-white border-0 focus:ring-0 focus:outline-none" dir="rtl"
+                        autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                    ></textarea>
+                </div>
+                <div class="flex justify-center px-3 py-6 border-t border-gray-200">
+                    <div class="flex flex-wrap flex-row-reverse w-4/5 justify-center gap-2" id="keyboard">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>
