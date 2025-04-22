@@ -1,4 +1,5 @@
-/*! tailwindcss v4.0.9 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.1.4 | MIT License | https://tailwindcss.com */
+@layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
@@ -6,13 +7,16 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-slate-400: oklch(0.704 0.04 256.788);
-    --color-slate-700: oklch(0.372 0.044 257.287);
-    --color-gray-50: oklch(0.985 0.002 247.839);
-    --color-gray-200: oklch(0.928 0.006 264.531);
-    --color-gray-300: oklch(0.872 0.01 258.338);
-    --color-gray-400: oklch(0.707 0.022 261.325);
-    --color-gray-900: oklch(0.21 0.034 264.665);
+    --color-red-500: oklch(63.7% 0.237 25.331);
+    --color-slate-100: oklch(96.8% 0.007 247.896);
+    --color-slate-400: oklch(70.4% 0.04 256.788);
+    --color-slate-700: oklch(37.2% 0.044 257.287);
+    --color-gray-50: oklch(98.5% 0.002 247.839);
+    --color-gray-200: oklch(92.8% 0.006 264.531);
+    --color-gray-300: oklch(87.2% 0.01 258.338);
+    --color-gray-400: oklch(70.7% 0.022 261.325);
+    --color-gray-500: oklch(55.1% 0.027 264.364);
+    --color-gray-900: oklch(21% 0.034 264.665);
     --color-white: #fff;
     --spacing: 0.25rem;
     --text-xs: 0.75rem;
@@ -24,17 +28,7 @@
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
     --default-font-family: var(--font-sans);
-    --default-font-feature-settings: var(--font-sans--font-feature-settings);
-    --default-font-variation-settings: var(
-      --font-sans--font-variation-settings
-    );
     --default-mono-font-family: var(--font-mono);
-    --default-mono-font-feature-settings: var(
-      --font-mono--font-feature-settings
-    );
-    --default-mono-font-variation-settings: var(
-      --font-mono--font-variation-settings
-    );
   }
 }
 @layer base {
@@ -48,13 +42,10 @@
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
     tab-size: 4;
-    font-family: var( --default-font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" );
+    font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
     font-feature-settings: var(--default-font-feature-settings, normal);
-    font-variation-settings: var( --default-font-variation-settings, normal );
+    font-variation-settings: var(--default-font-variation-settings, normal);
     -webkit-tap-highlight-color: transparent;
-  }
-  body {
-    line-height: inherit;
   }
   hr {
     height: 0;
@@ -78,9 +69,9 @@
     font-weight: bolder;
   }
   code, kbd, samp, pre {
-    font-family: var( --default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace );
-    font-feature-settings: var( --default-mono-font-feature-settings, normal );
-    font-variation-settings: var( --default-mono-font-variation-settings, normal );
+    font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+    font-feature-settings: var(--default-mono-font-feature-settings, normal);
+    font-variation-settings: var(--default-mono-font-variation-settings, normal);
     font-size: 1em;
   }
   small {
@@ -144,7 +135,14 @@
   }
   ::placeholder {
     opacity: 1;
-    color: color-mix(in oklab, currentColor 50%, transparent);
+  }
+  @supports (not (-webkit-appearance: -apple-pay-button))  or (contain-intrinsic-size: 1px) {
+    ::placeholder {
+      color: currentcolor;
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, currentcolor 50%, transparent);
+      }
+    }
   }
   textarea {
     resize: vertical;
@@ -179,11 +177,8 @@
   }
 }
 @layer utilities {
-  .collapse {
-    visibility: collapse;
-  }
-  .relative {
-    position: relative;
+  .invisible {
+    visibility: hidden;
   }
   .container {
     width: 100%;
@@ -203,9 +198,6 @@
       max-width: 96rem;
     }
   }
-  .mx-3 {
-    margin-inline: calc(var(--spacing) * 3);
-  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -218,32 +210,11 @@
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
   }
-  .block {
-    display: block;
-  }
   .flex {
     display: flex;
   }
   .hidden {
     display: none;
-  }
-  .inline-flex {
-    display: inline-flex;
-  }
-  .list-item {
-    display: list-item;
-  }
-  .table {
-    display: table;
-  }
-  .w-1 {
-    width: calc(var(--spacing) * 1);
-  }
-  .w-1\/2 {
-    width: calc(1/2 * 100%);
-  }
-  .w-4 {
-    width: calc(var(--spacing) * 4);
   }
   .w-4\/5 {
     width: calc(4/5 * 100%);
@@ -254,11 +225,8 @@
   .w-full {
     width: 100%;
   }
-  .border-collapse {
-    border-collapse: collapse;
-  }
-  .resize {
-    resize: both;
+  .cursor-pointer {
+    cursor: pointer;
   }
   .resize-none {
     resize: none;
@@ -303,6 +271,10 @@
     border-top-style: var(--tw-border-style);
     border-top-width: 1px;
   }
+  .border-b {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 1px;
+  }
   .border-gray-200 {
     border-color: var(--color-gray-200);
   }
@@ -321,11 +293,8 @@
   .bg-white {
     background-color: var(--color-white);
   }
-  .px-0 {
-    padding-inline: calc(var(--spacing) * 0);
-  }
-  .px-3 {
-    padding-inline: calc(var(--spacing) * 3);
+  .px-2 {
+    padding-inline: calc(var(--spacing) * 2);
   }
   .px-4 {
     padding-inline: calc(var(--spacing) * 4);
@@ -355,14 +324,17 @@
   .text-gray-400 {
     color: var(--color-gray-400);
   }
+  .text-gray-500 {
+    color: var(--color-gray-500);
+  }
   .text-gray-900 {
     color: var(--color-gray-900);
   }
+  .text-red-500 {
+    color: var(--color-red-500);
+  }
   .text-slate-700 {
     color: var(--color-slate-700);
-  }
-  .underline {
-    text-decoration-line: underline;
   }
   .caret-gray-400 {
     caret-color: var(--color-gray-400);
@@ -375,13 +347,17 @@
     --tw-shadow: 0 1px 2px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.05));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
-  .outline {
-    outline-style: var(--tw-outline-style);
-    outline-width: 1px;
+  .hover\:shadow-none {
+    &:hover {
+      @media (hover: hover) {
+        --tw-shadow: 0 0 #0000;
+        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+      }
+    }
   }
   .focus\:ring-0 {
     &:focus {
-      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentColor);
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
   }
@@ -391,24 +367,29 @@
       outline-style: none;
     }
   }
-  .md\:w-1\/2 {
-    @media (width >= 48rem) {
-      width: calc(1/2 * 100%);
+  .active\:bg-slate-100 {
+    &:active {
+      background-color: var(--color-slate-100);
     }
   }
-  .lg\:w-1\/2 {
-    @media (width >= 64rem) {
-      width: calc(1/2 * 100%);
+  .disabled\:cursor-not-allowed {
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+  .disabled\:bg-white {
+    &:disabled {
+      background-color: var(--color-white);
+    }
+  }
+  .disabled\:opacity-25 {
+    &:disabled {
+      opacity: 25%;
     }
   }
   .lg\:w-3\/4 {
     @media (width >= 64rem) {
       width: calc(3/4 * 100%);
-    }
-  }
-  .xl\:w-1\/2 {
-    @media (width >= 80rem) {
-      width: calc(1/2 * 100%);
     }
   }
   .\32 xl\:w-1\/2 {
@@ -435,6 +416,11 @@
   syntax: "*";
   inherits: false;
 }
+@property --tw-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
 @property --tw-inset-shadow {
   syntax: "*";
   inherits: false;
@@ -443,6 +429,11 @@
 @property --tw-inset-shadow-color {
   syntax: "*";
   inherits: false;
+}
+@property --tw-inset-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
 }
 @property --tw-ring-color {
   syntax: "*";
@@ -481,8 +472,25 @@
   inherits: false;
   initial-value: 0 0 #0000;
 }
-@property --tw-outline-style {
-  syntax: "*";
-  inherits: false;
-  initial-value: solid;
+@layer properties {
+  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
+    *, ::before, ::after, ::backdrop {
+      --tw-border-style: solid;
+      --tw-font-weight: initial;
+      --tw-shadow: 0 0 #0000;
+      --tw-shadow-color: initial;
+      --tw-shadow-alpha: 100%;
+      --tw-inset-shadow: 0 0 #0000;
+      --tw-inset-shadow-color: initial;
+      --tw-inset-shadow-alpha: 100%;
+      --tw-ring-color: initial;
+      --tw-ring-shadow: 0 0 #0000;
+      --tw-inset-ring-color: initial;
+      --tw-inset-ring-shadow: 0 0 #0000;
+      --tw-ring-inset: initial;
+      --tw-ring-offset-width: 0px;
+      --tw-ring-offset-color: #fff;
+      --tw-ring-offset-shadow: 0 0 #0000;
+    }
+  }
 }

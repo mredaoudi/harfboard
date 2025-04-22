@@ -4,6 +4,11 @@ let lastChange = 0;
 const TYPING_THRESHOLD = 1000;
 const textbox = document.getElementById('textbox');
 const keyboard = document.getElementById('keyboard');
+const transliterateButton = document.getElementById('transliterate-button');
+const transliterateContent = document.getElementById('transliterate-content');
+const textboxTransliterate = document.getElementById('textbox-transliterate');
+const transliterateSpinner = document.getElementById('transliterate-spinner');
+const deepseekAPIKeyInput = document.getElementById('deepseek-api-key');
 
 textbox.style.height = textbox.scrollHeight + "px";
 textbox.style.overflowY = "hidden";
@@ -68,7 +73,7 @@ for (const [key, value] of Object.entries(arabKeys)) {
     keyboard.appendChild(keyCont);
 };
 
-textbox.addEventListener('beforeinput', function(event) {
+textbox.addEventListener('beforeinput', function (event) {
     const letter = event.data;
 
     if (letter && arabKeys[letter]) {
@@ -82,9 +87,10 @@ textbox.addEventListener('beforeinput', function(event) {
         textbox.value = newValue;
         textbox.setSelectionRange(start + arabLetter.length, start + arabLetter.length);
     }
+    updateTransliterateButtonState();
 });
 
-textbox.addEventListener('input', function(event) {
+textbox.addEventListener('input', function (event) {
     textbox.style.height = "auto";
     textbox.style.height = textbox.scrollHeight + "px";
 
@@ -94,16 +100,85 @@ textbox.addEventListener('input', function(event) {
         changes[changes.length - (currentTime - lastChange <= TYPING_THRESHOLD)] = currentValue;
         lastChange = currentTime;
     }
+    updateTransliterateButtonState();
 });
 
-textbox.addEventListener('keydown', function(event) {
+textbox.addEventListener('keydown', function (event) {
     if (event.ctrlKey && event.key === 'z') {
         event.preventDefault();
         changes.pop();
         textbox.value = changes.at(-1) || '';
     }
+    updateTransliterateButtonState();
 });
+
+transliterateButton.addEventListener('click', async function () {
+    if (textbox.value !== '' && deepseekAPIKeyInput.value !== '') {
+        transliterateContent.classList.remove('hidden');
+        textboxTransliterate.textContent = '';
+        transliterateSpinner.classList.remove('invisible');
+        try {
+            const response = await askDeepSeekToTransliterate(textbox.value, deepseekAPIKeyInput.value);
+            textboxTransliterate.textContent = response;
+        } catch (error) {
+            textboxTransliterate.textContent = 'Error occurred during transliteration';
+            transliterateContent.classList.add('text-red-500');
+        } finally {
+            transliterateSpinner.classList.add('invisible');
+        }
+    }
+});
+
+deepseekAPIKeyInput.addEventListener('input', function () {
+    updateTransliterateButtonState();
+});
+
+function updateTransliterateButtonState() {
+    transliterateButton.disabled = !(textbox.value !== '' && deepseekAPIKeyInput.value !== '');
+}
 
 function isValidString(str) {
     return typeof str?.trim === 'function' && str.trim() !== '';
 }
+
+async function askDeepSeekToTransliterate(text, apiKey) {
+    const prompt = `
+        Please transliterate the following Arabic text into English using standard academic romanization.
+        Include diacritics (ā, ḥ, ū, etc.) and follow proper formatting rules.
+        Only provide the transliteration, no additional explanation. Capitalize the first letter of the sentence. Don't put the transliteration in quotes.
+        Do not include any Arabic script in the response.
+        
+        Arabic Text: "${text}"
+        
+        Transliteration:`;
+
+    const response = await fetch("https://api.deepseek.com/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+            model: "deepseek-chat",
+            messages: [
+                {
+                    role: "system",
+                    content: "You are a transliteration assistant."
+                },
+                {
+                    role: "user",
+                    content: prompt
+                }
+            ],
+            temperature: 0.7,
+            stream: false,
+            max_tokens: 1000
+        })
+    });
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+}
+
+updateTransliterateButtonState();
