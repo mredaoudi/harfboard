@@ -8,32 +8,32 @@
         <link rel="stylesheet" type="text/css" href="index.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;500;600;700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@300;400;500;600;700&family=Rubik+Mono+One&family=Rubik:ital,wght@0,300..900;1,300..900&family=Geist:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Amiri:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     </head>
-    <body class="bg-gray-200">
-        <div id="container" class="lg:w-3/4 2xl:w-1/2 mx-auto mt-8 px-4 flex flex-col items-center" style="font-family: 'Ubuntu';">
+    <body class="bg-gray-100">
+        <div id="container" class="lg:w-3/4 2xl:w-1/2 mx-auto mt-8 px-4 flex flex-col items-center" style="font-family: 'Geist';">
             <div class="mb-2 font-bold text-2xl text-slate-700">
                 Harfboard
             </div>
-            <div class="w-full mb-4 border border-slate-400 rounded-md bg-gray-50 shadow-lg">
+            <div class="w-full mb-4 border border-slate-300 rounded-lg bg-gray-50 shadow-lg shadow-slate-200">
                 <div class="py-2 bg-white rounded-t-lg">
                     <textarea
                         autofocus
                         id="textbox"
                         rows="1"
                         style="font-family: 'Scheherazade New';"
-                        class="resize-none w-full text-2xl px-4 py-2 text-gray-900 caret-gray-400 bg-white border-0 focus:ring-0 focus:outline-none" dir="rtl"
+                        class="resize-none w-full text-2xl px-4 py-2 text-slate-900 caret-slate-400 bg-white border-0 focus:ring-0 focus:outline-none" dir="rtl"
                         autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
                     ></textarea>
                     <div
                         id="transliterate-content"
-                        class="hidden w-full text-2xl px-4 py-2 text-gray-500 caret-gray-400 bg-white border-t border-gray-300"
+                        class="hidden w-full text-2xl px-4 py-2 text-slate-500 caret-slate-400 bg-white border-t border-slate-300"
                     >
                         <i id="transliterate-spinner" class="fa fa-spinner fa-spin mx-auto" aria-hidden="true"></i>
                         <span id="textbox-transliterate"></span>
                     </div>
                 </div>
-                <div class="flex flex-col justify-center items-center gap-2 border-t border-gray-200">
+                <div class="flex flex-col justify-center items-center gap-2 border-t border-slate-200">
                     <div class="border-b border-gray-200 w-full px-2 py-6 flex flex-col items-center">
                         <div class="flex flex-wrap flex-row-reverse w-4/5 justify-center gap-2 " id="keyboard">
                         </div>
@@ -41,12 +41,12 @@
                     <div class="flex justify-left items-center gap-2 px-2 py-6 w-4/5">
                         <input
                             id="deepseek-api-key"
-                            class="px-2 py-2 w-full bg-white text-gray-900 caret-gray-400 rounded-md border border-gray-200"
+                            class="px-2 py-2 w-full bg-white text-slate-900 caret-slate-400 rounded-md border focus:outline-none focus:ring-1 border-slate-300 focus:ring-slate-500 focus:border-transparent"
                             placeholder="Deepseek API Key"
                         />
                         <button
                             id="transliterate-button"
-                            class="px-4 py-2 rounded-md gap-1 cursor-pointer bg-white border border-gray-300 text-gray-900 hover:shadow-none active:bg-slate-100 disabled:opacity-25 disabled:bg-white disabled:cursor-not-allowed"
+                            class="px-4 py-2 rounded-md gap-1 cursor-pointer bg-white border border-slate-300 text-slate-500 hover:text-slate-700 hover:border-slate-700 disabled:opacity-25 disabled:cursor-not-allowed"
                             type="button"
                         >
                             Transliterate

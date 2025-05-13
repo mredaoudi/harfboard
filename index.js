@@ -63,10 +63,10 @@ for (const [key, value] of Object.entries(arabKeys)) {
     const kbdArab = document.createElement('button');
 
     kbdAlpha.textContent = key;
-    kbdAlpha.classList.add("text-xs", "font-semibold", "text-gray-400");
+    kbdAlpha.classList.add("text-xs", "font-semibold", "text-slate-500");
     kbdArab.textContent = value;
     kbdArab.style.fontFamily = 'Scheherazade New';
-    kbdArab.classList.add("py-2", "w-16", "font-semibold", "text-gray-900", "bg-white", "border", "border-gray-300", "rounded-md", "shadow-xs");
+    kbdArab.classList.add("py-2", "w-16", "font-semibold", "text-slate-800", "bg-white", "border", "border-slate-300", "rounded-md", "shadow-xs");
     keyCont.classList.add('flex', 'flex-col', 'items-center', 'gap-1');
     keyCont.appendChild(kbdAlpha);
     keyCont.appendChild(kbdArab);
