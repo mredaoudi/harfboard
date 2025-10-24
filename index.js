@@ -59,6 +59,7 @@ const arabKeys = {
     "u": "ء",
     ",": "،",
     "?": "؟",
+    "=": "\u200C"
 };
 
 for (const [key, value] of Object.entries(arabKeys)) {
